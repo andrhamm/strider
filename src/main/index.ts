@@ -1,8 +1,10 @@
-import { BrowserWindow, app, ipcMain, shell } from 'electron'
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
+import { DeletePlayerHero, GetPlayerHeroes } from '@shared/types'
+import { BrowserWindow, app, ipcMain, shell } from 'electron'
+import { deletePlayerHero, getPlayerHeroes, initNewPlayerHero } from './lib'
 
-import icon from '../../resources/icon.png?asset'
 import { join } from 'path'
+import icon from '../../resources/icon.png?asset'
 
 function createWindow(): void {
   // Create the browser window.
@@ -19,9 +21,11 @@ function createWindow(): void {
     visualEffectState: 'active',
     // titleBarStyle: 'hidden',
     webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
-      sandbox: true,
+      preload: join(__dirname, '../preload/index.mjs'),
+      sandbox: false, // must be false for ESM support...?
       contextIsolation: true
+      // nodeIntegration: true // enables node in renderer
+      // nodeIntegrationInWorker: true, // enables node in web workers
     }
   })
 
@@ -57,8 +61,15 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.handle('getPlayerHeroes', (_, ...args: Parameters<GetPlayerHeroes>) =>
+    getPlayerHeroes(...args)
+  )
+  ipcMain.handle('initNewPlayerHero', (_, ...args: Parameters<GetPlayerHeroes>) =>
+    initNewPlayerHero(...args)
+  )
+  ipcMain.handle('deletePlayerHero', (_, ...args: Parameters<DeletePlayerHero>) =>
+    deletePlayerHero(...args)
+  )
 
   createWindow()
 

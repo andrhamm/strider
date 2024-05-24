@@ -5,6 +5,13 @@ import { resolve } from 'path'
 
 export default defineConfig({
   main: {
+    build: {
+      rollupOptions: {
+        output: {
+          format: 'es'
+        }
+      }
+    },
     plugins: [externalizeDepsPlugin()],
     resolve: {
       alias: {
@@ -14,6 +21,13 @@ export default defineConfig({
     }
   },
   preload: {
+    build: {
+      rollupOptions: {
+        output: {
+          format: 'es'
+        }
+      }
+    },
     plugins: [externalizeDepsPlugin()]
   },
   renderer: {

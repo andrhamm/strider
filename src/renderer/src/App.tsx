@@ -1,4 +1,4 @@
-import { Content, RootLayout, Sidebar } from '@/components'
+import { ActionButtonsRow, Content, PlayerHeroPreviewList, RootLayout, Sidebar } from '@/components'
 
 import { useRef } from 'react'
 
@@ -12,11 +12,15 @@ const App = () => {
   return (
     <>
       <RootLayout>
-        <Sidebar className="border-4 border-red-500">Sidebar</Sidebar>
+        <Sidebar className="p-2">
+          <ActionButtonsRow className="flex justify-between mt-1" />
+          <PlayerHeroPreviewList className="mt-3 space-y-1" onSelect={resetScroll} />
+        </Sidebar>
 
-        <Content ref={contentContainerRef} className="border-4 border-blue-500">
-          Content
-        </Content>
+        <Content
+          ref={contentContainerRef}
+          className="border-l bg-zinc-900/50 border-l-white/20"
+        ></Content>
       </RootLayout>
     </>
   )

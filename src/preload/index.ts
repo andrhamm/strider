@@ -1,9 +1,10 @@
-import { contextBridge } from 'electron'
+import { DeletePlayerHero, GetPlayerHeroes, InitNewPlayerHero } from '@shared/types'
+import { contextBridge, ipcRenderer } from 'electron'
 // import { CreateNote, DeleteNote, GetNotes, ReadNote, WriteNote } from '@shared/types'
 // import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
-const api = {}
+// const api = {}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
@@ -28,8 +29,13 @@ if (!process.contextIsolated) {
 
 try {
   contextBridge.exposeInMainWorld('context', {
-    locale: navigator.language
-    // getNotes: (...args: Parameters<GetNotes>) => ipcRenderer.invoke('getNotes', ...args),
+    locale: navigator.language,
+    getPlayerHeroes: (...args: Parameters<GetPlayerHeroes>) =>
+      ipcRenderer.invoke('getPlayerHeroes', ...args),
+    initNewPlayerHero: (...args: Parameters<InitNewPlayerHero>) =>
+      ipcRenderer.invoke('initNewPlayerHero', ...args),
+    deletePlayerHero: (...args: Parameters<DeletePlayerHero>) =>
+      ipcRenderer.invoke('deletePlayerHero', ...args)
     // readNote: (...args: Parameters<ReadNote>) => ipcRenderer.invoke('readNote', ...args),
     // writeNote: (...args: Parameters<WriteNote>) => ipcRenderer.invoke('writeNote', ...args),
     // createNote: (...args: Parameters<CreateNote>) => ipcRenderer.invoke('createNote', ...args),

@@ -2,6 +2,7 @@
   "name": "strider-app",
   "productName": "Strider",
   "version": "1.0.0",
+  "type": "module",
   "description": "A companion desktop app for playing the tabletop RPG The One Ring 2e",
   "main": "./out/main/index.js",
   "author": {
@@ -27,7 +28,12 @@
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
-    "@electron-toolkit/utils": "^3.0.0"
+    "@electron-toolkit/utils": "^3.0.0",
+    "fs-extra": "^11.2.0",
+    "jotai": "^2.8.0",
+    "lowdb": "^7.0.1",
+    "nanoid": "^5.0.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",
@@ -45,6 +51,7 @@
     "electron-vite": "^2.0.0",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
+    "lodash": "^4.17.21",
     "postcss": "^8.4.38",
     "prettier": "^3.2.4",
     "react": "^18.2.0",
