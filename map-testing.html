@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hex Test</title>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', (event) => {
+        const container = document.querySelector('.container')
+
+        // 40 rows
+        for (let rowIndex = 0; rowIndex < 40; rowIndex++) {
+          // Create a new div element
+          const row = document.createElement('div')
+          row.setAttribute('class', 'hex-row')
+          row.setAttribute('data-row', rowIndex)
+
+          // 56 cols
+          for (let colIndex = 0; colIndex < 56; colIndex++) {
+            const hex = document.createElement('div')
+            hex.setAttribute('class', 'hex')
+            hex.setAttribute('data-row', rowIndex)
+            hex.setAttribute('data-col', colIndex)
+            row.appendChild(hex)
+          }
+
+          container.appendChild(row)
+        }
+
+        let mouseDown = false
+        let erase = false
+        container.addEventListener('mousedown', (event) => {
+          if (event.target.matches('.hex')) {
+            mouseDown = true
+            erase = event.target.matches('.selected')
+            event.target.classList.toggle('selected', !erase)
+          }
+        })
+        container.addEventListener('mousemove', (event) => {
+          if (mouseDown && event.target.matches('.hex')) {
+            event.target.classList.toggle('selected', !erase)
+          }
+        })
+
+        container.addEventListener('mouseup', (event) => {
+          mouseDown = false
+        })
+      })
+    </script>
+    <style type="text/css">
+      .container {
+        overflow: hidden;
+        width: 3061px;
+        height: 1977px;
+        background-image: url('./src/shared/tor/books/TOR_Loremaster_Map_of_Eriador.png');
+        background-repeat: no-repeat;
+        padding: 70px;
+        font-size: 0;
+
+        --hexwidth: 52.5px;
+        --hexheight: 60.65px;
+      }
+      .container > div {
+        height: var(--hexheight);
+        width: 100%;
+      }
+      .container > div:nth-child(even) {
+        margin-top: -15px;
+        margin-bottom: -15px;
+        margin-left: -12px;
+      }
+      .container > div:nth-child(even) > div {
+        background-color: red;
+      }
+      .container > div:nth-child(odd) {
+        margin-left: 15px;
+      }
+
+      .container > div > div {
+        display: inline-block;
+        width: var(--hexwidth);
+        height: var(--hexheight);
+        clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%);
+        background: black;
+        opacity: 50%;
+      }
+      .container > div > div:hover {
+        background-color: blueviolet;
+        cursor: pointer;
+      }
+
+      .hex.selected {
+        background-color: aquamarine !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+  </body>
+</html>

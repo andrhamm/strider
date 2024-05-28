@@ -1,5 +1,7 @@
 # strider (working title)
 
+## CURRENT STATUS: In _VERY_ early development!
+
 ## Overview
 
 An unofficial \[WIP\] companion desktop app for playing the tabletop RPG [The One Ring 2e](https://freeleaguepublishing.com/shop/the-one-ring/) built on Electron.
@@ -16,7 +18,7 @@ I am not affiliated with Free League and will not be profiting from this softwar
   - Smart dice rolls with [dddice](https://dddice.com/product/HSX-0001) integration for sweet 3D graphics and sound
   - Chat-bot and/or command-line style UX
   - Campaign map
-  - Strider mode gameplay with smart telling & lore tables
+  - Strider mode gameplay with smart telling & lore tables including a fun “CCG / gard game” spin on the UI/UX to help player understand what actions are available to them at any given time
   - Prototype for local AI Loremaster assistant
   - Logging of all actions and events with "undo" & "redo" support
 - **Beta and beyond...**
@@ -26,6 +28,7 @@ I am not affiliated with Free League and will not be profiting from this softwar
   - Add support for more gameplay features (combat, experience, heirs, etc)
   - Cloud sync, realtime multiplayer, streamer mode
   - Support for expansion source material (Tales from the Lone Lands, Ruins of the Lost Realm, Moria!)
+  - Map editor and annotation tool (align hex grid, annotate hexes, add POIs and save different versions of the map for specific campaigns/sessions)
 
 ### Technical Stuff
 
