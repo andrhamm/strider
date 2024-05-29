@@ -45,6 +45,57 @@
         container.addEventListener('mouseup', (event) => {
           mouseDown = false
         })
+
+        const clearSelected = () => {
+          const selected = container.querySelectorAll('.selected')
+          selected.forEach((hex) => {
+            hex.classList.remove('selected')
+          })
+        }
+
+        const selectInput = document.querySelector('.annotate .category')
+        const annotate = document.querySelector('.annotate')
+
+        annotate.addEventListener('click', (event) => {
+          if (event.target.matches('.save')) {
+            if (selectInput.value) {
+              const selected = container.querySelectorAll('.selected')
+              const data = Array.from(selected).map((hex) => {
+                return {
+                  row: hex.getAttribute('data-row'),
+                  col: hex.getAttribute('data-col')
+                }
+              })
+              localStorage.setItem(selectInput.value, JSON.stringify(data))
+              console.log('Saved', data.length, 'annotations for', selectInput.value)
+            }
+          } else if (event.target.matches('.clear')) {
+            clearSelected()
+          }
+        })
+
+        selectInput.addEventListener('change', (event) => {
+          clearSelected()
+          const selectedValue = event.target.value
+          if (!selectedValue) {
+            return
+          }
+          const data = JSON.parse(localStorage.getItem(selectedValue))
+
+          if (data) {
+            let count = 0
+            data.forEach((d) => {
+              const hex = container.querySelector(`.hex[data-row="${d.row}"][data-col="${d.col}"]`)
+              if (hex) {
+                hex.classList.add('selected')
+                count += 1
+              }
+            })
+            console.log('Loaded', count, 'annotations for', selectedValue)
+          } else {
+            console.log('No data found for', selectedValue)
+          }
+        })
       })
     </script>
     <style type="text/css">
@@ -53,7 +104,8 @@
         margin: 0;
       }
       .container-pad {
-        padding: 1200px;
+        /* padding: 1200px; */
+        padding: 20px;
         background-image: url('./resources/parchment-noise.png');
         height: 100%;
         width: 100%;
@@ -115,11 +167,38 @@
       .hex.selected {
         background-color: blueviolet;
       }
+
+      body {
+        position: relative;
+      }
+      .annotate {
+        width: 500px;
+        height: 200px;
+        background: white;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+      }
     </style>
   </head>
   <body>
     <div class="container-pad">
       <div class="container"></div>
+    </div>
+    <div class="annotate">
+      <select class="category">
+        <option value="" selected>Select</option>
+        <option value="roads">roads</option>
+        <option value="borderLands">boarder lands</option>
+        <option value="wildLands">wild lands</option>
+        <option value="darkLands">dark lands</option>
+        <option value="impassableTerrain">impassable terrain</option>
+        <option value="perilousArea1">perilous area 1</option>
+        <option value="perilousArea2">perilous area 2</option>
+        <option value="perilousArea3">perilous area 3</option>
+      </select>
+      <button class="save">Save</button>
+      <button class="clear">Clear</button>
     </div>
   </body>
 </html>
