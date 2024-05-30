@@ -57,7 +57,7 @@
         const annotate = document.querySelector('.annotate')
 
         annotate.addEventListener('click', (event) => {
-          if (event.target.matches('.save')) {
+          if (event.target.matches('button.save')) {
             if (selectInput.value) {
               const selected = container.querySelectorAll('.selected')
               const data = Array.from(selected).map((hex) => {
@@ -69,8 +69,28 @@
               localStorage.setItem(selectInput.value, JSON.stringify(data))
               console.log('Saved', data.length, 'annotations for', selectInput.value)
             }
-          } else if (event.target.matches('.clear')) {
+          } else if (event.target.matches('button.clear')) {
             clearSelected()
+          } else if (event.target.matches('button.export')) {
+            const allData = {}
+            for (let i = 0; i < selectInput.options.length; i++) {
+              const optionValue = selectInput.options[i].value
+              if (!optionValue) continue
+              const data = JSON.parse(localStorage.getItem(optionValue))
+              if (data) {
+                allData[optionValue] = data
+              }
+            }
+
+            const dataStr = JSON.stringify(allData, null, 2)
+            const dataBlob = new Blob([dataStr], { type: 'application/json' })
+            const url = URL.createObjectURL(dataBlob)
+            const link = document.createElement('a')
+            link.href = url
+            link.download = 'map-data.json'
+            link.target = '_blank'
+            link.click()
+            console.log('Exported all data')
           }
         })
 
@@ -196,9 +216,11 @@
         <option value="perilousArea1">perilous area 1</option>
         <option value="perilousArea2">perilous area 2</option>
         <option value="perilousArea3">perilous area 3</option>
+        <option value="perilousArea4">perilous area 4</option>
       </select>
       <button class="save">Save</button>
       <button class="clear">Clear</button>
+      <button class="export">Export Data</button>
     </div>
   </body>
 </html>
