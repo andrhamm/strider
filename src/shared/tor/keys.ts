@@ -19,11 +19,16 @@ const BookRivendellSchema = z.object({
   id: z.literal('rivendell'),
   title: z.literal('Rivendell')
 })
+const BookMoriaSchema = z.object({
+  id: z.literal('moria'),
+  title: z.literal('Moria: Through the Doors of Durin')
+})
 
 const BookIdSchema = z.union([
   BookCoreRulesSchema.shape.id,
   BookPeoplesOfWilderlandSchema.shape.id,
-  BookRivendellSchema.shape.id
+  BookRivendellSchema.shape.id,
+  BookMoriaSchema.shape.id
 ])
 
 // const BooksSchema = z.discriminatedUnion('id', [
@@ -57,7 +62,8 @@ export const CulturalHandicapKeySchema = z.enum([
   'theLongDefeat',
   'halflings',
   'allegianceOfTheDunedain',
-  'besetByWoe'
+  'besetByWoe',
+  'pettyDwarves'
 ])
 
 export const StandardOfLivingKeySchema = z.enum(['common', 'frugal', 'prosperous'])
@@ -158,7 +164,8 @@ export const HeroicCultureKeySchema = z.enum([
   'beornings',
   'elvesOfMirkwood',
   'woodmenOfWilderland',
-  'highElvesOfRivendell'
+  'highElvesOfRivendell',
+  'dwarvesOfNogrodAndBelegost'
 ])
 
 export const VirtueKeySchema = z.enum([
@@ -236,5 +243,9 @@ export const VirtueKeySchema = z.enum([
   'artificerOfEregion',
   'beautyOfTheStars',
   'mightOfTheFirstborn',
-  'skillOfTheEldar'
+  'skillOfTheEldar',
+
+  // virtues of the dwarves of nogrod and belegost
+  'ancientFire',
+  'telcharsSecrets'
 ])
