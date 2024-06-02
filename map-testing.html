@@ -130,6 +130,11 @@
         height: 100%;
         width: 100%;
       }
+      .container-border {
+        border: 5px solid black;
+        padding: 6px;
+        display: inline-block;
+      }
       .container {
         display: flex;
         flex-direction: column;
@@ -141,7 +146,7 @@
         background-repeat: no-repeat;
         background-position: -490px -69px;
         font-size: 0;
-        border: 4px solid black;
+        border: 3px solid black;
 
         user-drag: none;
         -webkit-user-drag: none;
@@ -203,7 +208,9 @@
   </head>
   <body>
     <div class="container-pad">
-      <div class="container"></div>
+      <div class="container-border">
+        <div class="container"></div>
+      </div>
     </div>
     <div class="annotate">
       <select class="category">
