@@ -16,24 +16,34 @@
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
     "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
-    "typecheck": "npm run typecheck:node && npm run typecheck:web",
+    "typecheck": "yarn typecheck:node && yarn typecheck:web",
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
-    "build": "npm run typecheck && electron-vite build",
+    "build": "yarn typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
-    "build:unpack": "npm run build && electron-builder --dir",
-    "build:win": "npm run build && electron-builder --win",
+    "build:unpack": "yarn build && electron-builder --dir",
+    "build:win": "yarn build && electron-builder --win",
     "build:mac": "electron-vite build && electron-builder --mac",
-    "build:linux": "electron-vite build && electron-builder --linux"
+    "build:linux": "electron-vite build && electron-builder --linux",
+    "rebuild": "node-gyp rebuild",
+    "cli": "tsx ./src/scripts/cli.ts"
+  },
+  "bin": {
+    "strider": "./strider"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
+    "@headlessui/react": "^2.0.4",
+    "@inquirer/prompts": "^7.4.1",
+    "axios": "^1.9.0",
+    "dddice-js": "^0.18.5",
     "fs-extra": "^11.2.0",
     "jotai": "^2.8.0",
     "lowdb": "^7.0.1",
     "nanoid": "^5.0.7",
-    "zod": "^3.23.8"
+    "winston": "^3.17.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",
@@ -46,12 +56,14 @@
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
     "clsx": "^2.1.1",
+    "commander": "^13.1.0",
     "electron": "^28.2.0",
     "electron-builder": "^24.9.1",
     "electron-vite": "^2.0.0",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
     "lodash": "^4.17.21",
+    "node-gyp": "^11.2.0",
     "postcss": "^8.4.38",
     "prettier": "^3.2.4",
     "react": "^18.2.0",
@@ -59,6 +71,8 @@
     "react-icons": "^5.2.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.3",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.19.3",
     "typescript": "^5.3.3",
     "vite": "^5.0.12"
   }

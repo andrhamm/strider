@@ -9,3 +9,6 @@ db.json
 # During development we'll keep copies of the books here but never commit them to source due to copyright!
 # Users will be required to drag and drop their own copies of the books into the app.
 src/shared/tor/books/*
+
+# lowdb
+cli/cli-db.json

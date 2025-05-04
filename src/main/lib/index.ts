@@ -15,7 +15,7 @@ export const getPlayerHeroes: GetPlayerHeroes = async () => {
   const db = await JSONFilePreset<DbSchema>('db.json', defaultData)
   await db.read()
 
-  console.info('db.data', db.data)
+  // console.debug('db.data', db.data)
 
   return db.data.playerHeroes
 

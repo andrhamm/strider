@@ -1,0 +1,4 @@
+#!/usr/bin/env tsx --tsconfig tsconfig.node.json
+
+import './src/scripts/cli.ts';
+
